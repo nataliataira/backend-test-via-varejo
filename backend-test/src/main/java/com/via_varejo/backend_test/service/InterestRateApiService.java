@@ -2,7 +2,6 @@ package com.via_varejo.backend_test.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +18,7 @@ public class InterestRateApiService {
     private final RestTemplate restTemplate = new RestTemplate();
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
-    public Double getAccumulatedSelic() throws JsonProcessingException{
+    public Double getAccumulatedSelic() throws RuntimeException{
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -31);
         String start = DATE_FORMAT.format(calendar.getTime());
@@ -43,7 +41,6 @@ public class InterestRateApiService {
             }
             return (accumulatedFactor - 1) * 100.0;
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             throw new RuntimeException("Erro ao processar os dados da API do Banco Central.");
         }
     }
