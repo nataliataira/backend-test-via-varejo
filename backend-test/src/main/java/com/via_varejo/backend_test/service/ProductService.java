@@ -1,6 +1,5 @@
 package com.via_varejo.backend_test.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.via_varejo.backend_test.domain.product.Product;
 import com.via_varejo.backend_test.domain.product.ProductRequestDTO;
 import com.via_varejo.backend_test.domain.product.ProductResponseDTO;
@@ -70,14 +69,14 @@ public class ProductService {
         return data.price().equals(data.downPayment()) && data.installments() > 1;
     }
 
-    public List<ProductResponseDTO> calculateInstallmentValue(Product product) throws JsonProcessingException {
+    public List<ProductResponseDTO> calculateInstallmentValue(Product product) {
         double price = product.getPrice();
         double downPayment = product.getPayment().getDownPayment();
         int installmentsNumber = product.getPayment().getInstallments();
 
         double installmentValue = (price - downPayment) / installmentsNumber;
 
-        List<ProductResponseDTO> installmentsArray = new ArrayList<ProductResponseDTO>();
+        List<ProductResponseDTO> installmentsArray = new ArrayList<>();
         for (int counter = 0; counter < installmentsNumber; counter++) {
             if (installmentsNumber == 1) {
                 installmentsArray.add(new ProductResponseDTO(counter + 1, price, "0"));
