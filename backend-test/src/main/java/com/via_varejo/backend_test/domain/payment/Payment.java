@@ -20,10 +20,10 @@ public class Payment {
     @GeneratedValue
     private UUID id;
 
-    private double down_payment;
-    private Integer installment;
+    private double downPayment;
+    private Integer installments;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 }

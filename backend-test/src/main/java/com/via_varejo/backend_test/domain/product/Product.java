@@ -1,9 +1,7 @@
 package com.via_varejo.backend_test.domain.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.via_varejo.backend_test.domain.payment.Payment;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +20,10 @@ public class Product {
     @GeneratedValue
     private UUID id;
 
+    private int code;
     private String name;
-    private double value;
+    private double price;
+
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    private Payment payment;
 }
